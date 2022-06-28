@@ -1,0 +1,37 @@
+{% extends 'layout/base.html' %}
+{% block title %}Danh muc sach{% endblock %}
+{% block content %}
+<div class="container">
+    <br/>
+    <h1 class="subject">DANH MUC SACH</h1>
+    <br/>
+    <form class="container">
+        <input name="keyword" type="text" placeholder="Nhap tu khoa muon tim..." />
+        <input name="from_price" type="number" placeholder="Nhap gia bat dau..." />
+        <input name="to_price" type="number" placeholder="Nhap gia ket thuc" />
+        <input type="submit" value="Tim">
+    </form>
+    <table border="1" class="book">
+        <tr>
+            <th></th>
+            <th>Ma san pham</th>
+            <th>Ten san pham</th>
+            <th>Mo ta</th>
+            <th>Gia ban</th>
+        </tr>
+        {% for b in books %}
+        <tr>
+            <td>
+                <a href="{{ url_for('book_detail', book_id= b.id) }}">
+                    <img src="{{ url_for('static', filename= b.image) }}"  width="120" alt="{{ b.name }}"/>
+                </a>
+            </td>
+            <td>{{ b.id }}</td>
+            <td>{{ b.name }}</td>
+            <td>{{ b.description }}</td>
+            <td>{{ "{:,.1f}".format(b.price) }}VND</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

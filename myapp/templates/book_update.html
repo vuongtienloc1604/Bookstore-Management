@@ -1,0 +1,71 @@
+{% extends 'employee_layout/base.html' %}
+{% block title %}Cap nhat sach{% endblock %}
+{% block content %}
+<h1 class="text-center text-success">
+    Cap nhat sach
+</h1>
+<div class="container">
+    {% if err %}
+    <div class="alert alert-danger">
+        {{ err }}
+    </div>
+    {% endif %}
+    <form action="" method="post">
+        <div class="form-group">
+            <label>Ten sach</label>
+            <input type="text" name="name" class="form-control" value="{{ book.name }}">
+        </div>
+        <div class="form-group">
+            <label>Ten tac gia</label>
+            <select class="form-control" name="author">
+                {% for a in author %}
+                <option value="{{ a.id }}">{{ a.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>The loai</label>
+            <input type="text" name="type" class="form-control" value="{{ book.type }}">
+        </div>
+        <div class="form-group">
+            <label>Gia san pham</label>
+            <input type="number" name="price" class="form-control" value="{{ book.price }}">
+        </div>
+        <div class="form-group">
+            <label>Ngay xuat ban</label>
+            <input type="date" name="publish_date" class="form-control" value="{{ book.publish_date }}">
+        </div>
+        <div class="form-group">
+            <label>So luong</label>
+            <input type="number" name="in_stock" class="form-control" value="{{ book.in_stock }}">
+        </div>
+        <div class="form-group">
+            <label>publisher_id</label>
+            <select class="form-control" name="publisher_id" >
+                {% for p in publisher %}
+                <option value="{{ p.id }}"{% if p.id==book.publisher_id %}selected{% endif %}>{{ p.id }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Mo ta san pham</label>
+            <textarea class="form-control" name="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label>Danh muc</label>
+            <select class="form-control" name="book_cate_id">
+                {% for cat in categories %}
+                <option value="{{ cat.id }}" {% if cat.id==book.book_category_id %}selected{% endif %}>{{ cat.id }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            <label>Anh san pham</label>
+            <input type="text" name="image" class="form-control" value="{{ book.image }}">
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Cap nhat" class="btn btn-danger"/>
+        </div>
+    </form>
+</div>
+{% endblock %}

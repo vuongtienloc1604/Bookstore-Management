@@ -1,0 +1,16 @@
+{% extends 'employee_layout/base.html' %}
+
+{% block content %}
+    <h1 style="text-align: center">Thông tin nhân viên</h1>
+    <div class="row">
+        <div class="column">
+            <img src="{{ current_user.avatar }}" />
+        </div>
+        <div class="column">
+            <h3>Tên user: {{ current_user.name }}</h3>
+            <h3>Chức vụ: {{ current_user.user_role }}</h3>
+            <h3>Ngày vào làm: {{ current_user.joined_date }}</h3>
+        </div>
+    </div>
+<br/>
+{% endblock %}

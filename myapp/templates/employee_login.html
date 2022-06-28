@@ -1,0 +1,37 @@
+{% extends 'employee_layout/base.html' %}
+{% block title %}DANG NHAP NGUOI DUNG{% endblock %}
+{% block content %}
+<h1 class="text-center text-info">DANG NHAP NGUOI DUNG NHAN VIEN</h1>
+{% if err_msg %}
+<div class="alert alert-danger">
+    {{ err_msg }}
+</div>
+{% endif %}
+<div class="container">
+    <form method="post">
+        <div class="form-group">
+           <label for="username">Username</label>
+           <input type="text" name="username" class="form-control"
+                  id="username" placeholder="Nhap username..." required />
+       </div>
+        <div class="form-group">
+           <label for="password">Mat khau</label>
+           <input type="password"
+                  name="password"
+                  class="form-control"
+                  id="password"
+                  placeholder="Nhap mat khau..." required />
+       </div>
+        <div class="form-group">
+            <select id="choice" type="choice" name="choice" required>
+              <option value="STORE_MANAGER">Store manager</option>
+              <option value="MANAGER">Manager</option>
+              <option value="BOOK_SELLER">Book seller</option>
+            </select>
+        </div>
+        <input type="submit" value="Dang nhap" class="btn btn-danger" />
+    </form>
+
+</div>
+<br><br>
+{% endblock %}

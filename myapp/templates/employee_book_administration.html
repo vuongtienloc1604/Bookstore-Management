@@ -1,0 +1,39 @@
+{% extends 'employee_layout/base.html' %}
+{% block title %}Quan tri sach{% endblock %}
+{% block content %}
+<div class="container">
+    <button type="button" onclick="window.location.href='{{ url_for('add_book') }}'" class="button">Thêm sách</button>
+</div>
+
+<br/>
+<form class="form-inline">
+    <input class="form-control mr-sm-2" name="keyword" type="text" placeholder="Nhap tu khoa">
+    <button class="btn btn-success" type="submit">Tim kiem</button>
+</form>
+{% if page > 1 %}
+    <ul class="pagination">
+        {% for idx in range(1, page+1) %}
+        <li class="page-item"><a class="page-link" href="{{ url_for('book_administration', page=idx) }}">{{ idx }}</a></li>
+        {% endfor %}
+
+    </ul>
+{% endif %}
+    <div class="row">
+        {% for b in books %}
+        <div id="book{{ b.id }}" class="col-md-3 col-xs-12">
+            <div class="card">
+              <img class="card-img-top" style="width:250px; height: 350px" src="{{ url_for('static', filename=b.image) }}" alt="{{ b.name }}">
+              <div class="card-body">
+                <h4 class="card-title">{{ b.name }}</h4>
+                <p class="card-text">{{ "{:,.1f}".format(b.price) }} VND</p>
+                <a href="{{ url_for('update_book',book_id=b.id) }}" class="btn btn-primary" >Cap nhat</a>
+                <a href="#" class="btn btn-primary" onclick="deleteBook({{ b.id }})" >Xoa</a>
+                  <br><br>
+<!--<a href="{{ url_for('book_detail',book_id=b.id) }}" class="btn btn-info align-center" >Xem chi tiet</a>-->
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

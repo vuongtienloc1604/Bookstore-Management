@@ -1,0 +1,130 @@
+{% extends 'employee_layout/base.html' %}
+
+{% block content %}
+
+<div class="container">
+    <h1>HÓA ĐƠN SÁCH</h1>
+    <p>Ngày nhập:<input type="date"/></p>
+    <p>Họ tên khách hàng:<input type="text"/></p>
+    <p>Nhân viên thanh toán: {{ current_user.name }}</p>
+</div>
+
+<table border="1" id="table-1" class="book_entry" style="width: 100%">
+    <tr>
+            <th style="text-align: center" class="header_item">STT</th>
+            <th style="text-align: center" class="header_item">Tên Sách</th>
+            <th style="text-align: center" class="header_item">Thể loại</th>
+            <th style="text-align: center" class="header_item">Số lượng</th>
+            <th style="text-align: center" class="header_item">Đơn giá</th>
+            <th style="text-align: center" class="header_item"></th>
+    </tr>
+    <tr>
+        <td class="header_item1 counterCell">
+
+        </td>
+        <td class="header_item">
+            <input list="book_name">
+            <datalist name="book_name" id="book_name">
+              {% for b in books %}
+                <option>{{ b.name }}</option>
+                {% endfor %}
+            </datalist>
+        </td>
+        <td class="header_item">
+            <input list="category">
+            <datalist name="category" id="category">
+              {% for c in book_cates %}
+                <option>{{ c.name }}</option>
+                {% endfor %}
+            </datalist>
+        </td>
+        <td class="header_item">
+            <input type="number" id="number" name="number">
+        </td>
+        <td class="header_item">
+            <input type="number" id="price" name="price">
+        </td>
+        <td>
+            <input type="button" value="Delete Row" onclick="DeleteRowFunction(this)"/>
+        </td>
+    </tr>
+</table>
+<input type="submit" class="button" value="Add Row" onclick="addField('table-1');" />
+<hr/>
+<div class="container">
+    <span>Số tiền khách đưa:<input type="number" id="pay_money" name="pay_money">
+    </span>
+    <span>Tổng tiền: <input type="number"></span>
+    <span>Tiền thối: <input type="number"></span>
+    <input style="left:0px" type="submit" value="Thanh toan" class="btn btn-danger" onclick="pay_saleform()"/>
+</div>
+<hr/>
+<script>
+function addField( table ){
+
+  var tableRef = document.getElementById(table)
+  var newRow   = tableRef.insertRow(-1);
+
+  var newCell  = newRow.insertCell(0);
+  var newElem = document.createElement( 'td' );
+  newElem.setAttribute("class", "header_item1");
+  newElem.setAttribute("class", "counterCell");
+  newCell.appendChild(newElem);
+  newElem.style.textAlign = 'center';
+
+  var newCell  = newRow.insertCell(1);
+  var newElem = document.createElement( 'td' );
+  var newElem1 = document.createElement( 'input' );
+  var newElem2 = document.createElement( 'datalist' );
+  newElem.setAttribute("class", "header_item");
+  newElem1.setAttribute("list", "book_name");
+  newElem2.setAttribute("name", "book_name");
+  newElem2.setAttribute("id", "book_name");
+  newCell.appendChild(newElem);
+  newCell.appendChild(newElem1);
+  newCell.appendChild(newElem2);
+
+  var newCell  = newRow.insertCell(2);
+  var newElem = document.createElement( 'td' );
+  var newElem1 = document.createElement( 'input' );
+  var newElem2 = document.createElement( 'datalist' );
+  newElem.setAttribute("class", "header_item");
+  newElem1.setAttribute("list", "category");
+  newElem2.setAttribute("name", "category");
+  newElem2.setAttribute("id", "category");
+  newCell.appendChild(newElem);
+  newCell.appendChild(newElem1);
+  newCell.appendChild(newElem2);
+
+  newCell = newRow.insertCell(3);
+  newElem = document.createElement( 'input' );
+  newElem.setAttribute("class", "header_item");
+  newElem.setAttribute("type", "number");
+  newElem.setAttribute("id", "number");
+  newElem.setAttribute("name", "number");
+  newCell.appendChild(newElem);
+
+  newCell = newRow.insertCell(4);
+  newElem = document.createElement( 'input' );
+  newElem.setAttribute("class", "header_item");
+  newElem.setAttribute("type", "number");
+  newElem.setAttribute("id", "price");
+  newElem.setAttribute("name", "price");
+  newCell.appendChild(newElem);
+
+  newCell = newRow.insertCell(5);
+  newElem = document.createElement( 'input' );
+  newElem.setAttribute("type", "button");
+  newElem.setAttribute("value", "Delete Row");
+  newElem.setAttribute("onclick", 'DeleteRowFunction(this)')
+  newCell.appendChild(newElem);
+
+  window.DeleteRowFunction = function DeleteRowFunction(row) {
+     var targeted_row = row.parentNode.parentNode;
+     targeted_row.parentNode.removeChild(targeted_row);
+    }
+}
+</script>
+{% endblock %}
+
+
